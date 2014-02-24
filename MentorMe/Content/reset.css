@@ -1,0 +1,475 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/* ---------------------------------------- HTML5 RESET ----------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, input, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video
+{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, label, legend
+{
+    display: block;
+}
+
+blockquote, q
+{
+    quotes: none;
+}
+
+    blockquote:before, blockquote:after, q:before, q:after
+    {
+        content: '';
+        content: none;
+    }
+
+table
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+img
+{
+    border: 0px;
+    max-width: 100%;
+}
+
+i
+{
+    font-family: proximanova, Arial, Times, serif;
+    font-style: italic;
+}
+
+label
+{
+    font-size: 14px;
+    color: #4d4d4d;
+    display: block;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+sub, sup
+{
+    font-size: 60%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup
+{
+    top: -0.5em;
+}
+
+sub
+{
+    bottom: -0.25em;
+}
+
+.small
+{
+    font-size: 12px;
+}
+/* ----------------------------------------CUSTOM RESET BASED ON YOUR THEME----------------------------------------- */
+body
+{
+    background: #fff;
+    font: 13px/22px Arial, Helvetica, sans-serif;
+    color: #555;
+}
+
+.main-container
+{
+    opacity: 0;
+}
+
+/* ------------------------------------------- Typography ---------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6
+{
+    font-style: normal;
+    color: #006599;
+    text-rendering: optimizeLegibility;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    margin-top: 14px;
+    font-family: "proximanova", Arial, Helvetica, sans-serif;
+}
+
+    h1 small, h2 small, h3 small, h4 small, h5 small, h6 small
+    {
+        font-size: 60%;
+        color: #555;
+        line-height: 0;
+    }
+
+    h1 a, h2 a, h3 a, h4 a, h5 a, h6 a
+    {
+        font-weight: inherit;
+        text-decoration: none;
+    }
+
+h1
+{
+    font-size: 36px;
+    line-height: 48px;
+    margin-bottom: 12px;
+}
+
+h2
+{
+    font-size: 32px;
+    line-height: 42px;
+    margin-bottom: 8px;
+}
+
+h3
+{
+    font-size: 27px;
+    line-height: 36px;
+    margin-bottom: 6px;
+}
+
+h4
+{
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 4px;
+}
+
+h5
+{
+    font-size: 20px;
+    line-height: 27px;
+    font-weight: bold;
+}
+
+h6
+{
+    font-size: 16px;
+    line-height: 27px;
+    font-weight: bold;
+}
+
+a
+{
+    color: #555;
+    text-decoration: none;
+    line-height: inherit;
+}
+
+    a:hover
+    {
+        color: #333;
+    }
+
+    a:focus
+    {
+        color: #545c61;
+        outline: none;
+    }
+
+p
+{
+    margin-bottom: 1em;
+}
+
+    p a, p a:visited
+    {
+        line-height: inherit;
+    }
+
+em, i
+{
+    font-style: italic;
+    line-height: inherit;
+}
+
+strong, b
+{
+    font-weight: bold;
+    line-height: inherit;
+}
+
+small
+{
+    font-size: 70%;
+    line-height: inherit;
+}
+
+hr
+{
+    border: solid #eee;
+    border-width: 1px 0 0;
+    clear: both;
+    margin: 20px 0 -15px;
+    height: 0;
+}
+/* ----------------------------------------- Lists ------------------------------------------ */
+ul, ol
+{
+    margin-bottom: 8px;
+}
+
+    ul li ul, ul li ol
+    {
+        margin-bottom: 0px;
+    }
+
+    ul.square, ul.circle, ul.disc
+    {
+        margin-left: 12px;
+    }
+
+    ul.square
+    {
+        list-style-type: square;
+    }
+
+        ul.square li ul
+        {
+            list-style: inherit;
+        }
+
+    ul.circle
+    {
+        list-style-type: circle;
+    }
+
+        ul.circle li ul
+        {
+            list-style: inherit;
+        }
+
+    ul.disc
+    {
+        list-style-type: disc;
+    }
+
+        ul.disc li ul
+        {
+            list-style: inherit;
+        }
+
+    ul.no-bullet
+    {
+        list-style: none;
+    }
+
+    ul.large li
+    {
+        line-height: 21px;
+    }
+
+ol
+{
+    margin-left: 10px;
+}
+
+    ol li ul, ol li ol
+    {
+        margin-left: 10px;
+        margin-bottom: 0;
+    }
+
+ul
+{
+    list-style: none;
+}
+/*------------------Butons-------------------------*/
+/*.blue-btn {
+	background: #0ea2ea; /* Old browsers */
+background: -moz-linear-gradient(top, #0ea2ea 1%, #1280d7 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#0ea2ea), color-stop(100%,#1280d7)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #0ea2ea 1%,#1280d7 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #0ea2ea 1%,#1280d7 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #0ea2ea 1%,#1280d7 100%); /* IE10+ */
+background: linear-gradient(to bottom, #0ea2ea 1%,#1280d7 100%); /* W3C */
+padding: 5px 15px; border-radius : 5px; -moz-border-radius : 5px; -webkit-border-radius: 5px; -o-border-radius : 5px; -ms-border-radius : 5px; border : solid 1px #084260; border-top: solid 1px #97e5f8; box-shadow : 0 1px 0 #3f86aa; -moz-box-shadow : 0 1px 0 #3f86aa; -webkit-box-shadow: 0 1px 0 #3f86aa; -o-box-shadow : 0 1px 0 #3f86aa; -ms-box-shadow : 0 1px 0 #3f86aa; color: #fff; text-shadow : 0 -1px 0 rgba(0,0,0,0.4); -moz-text-shadow : 0 -1px 0 rgba(0,0,0,0.4); -webkit-text-shadow: 0 -1px 0 rgba(0,0,0,0.4); -o-text-shadow : 0 -1px 0 rgba(0,0,0,0.4); -ms-text-shadow : 0 -1px 0 rgba(0,0,0,0.4); font-weight:bold; text-transform:uppercase; cursor: pointer;
+}
+
+.blue-btn:hover
+{
+    background: #1280d7; /* Old browsers */
+    background: -moz-linear-gradient(top, #1280d7 1%, #0ea2ea 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#1280d7), color-stop(100%,#0ea2ea)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1280d7 1%,#0ea2ea 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1280d7 1%,#0ea2ea 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1280d7 1%,#0ea2ea 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #1280d7 1%,#0ea2ea 100%); /* W3C */
+}
+
+*/ .orange-btn
+{
+    background: #ffbe00; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffbe00 1%, #ff8001 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffbe00), color-stop(100%, #ff8001)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffbe00 1%, #ff8001 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffbe00 1%, #ff8001100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffbe00 1%, #ff8001 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffbe00 1%, #ff8001 100%); /* W3C */
+    padding: 5px 15px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border: solid 1px #084260;
+    border-top: solid 1px #97e5f8;
+    box-shadow: 0 1px 0 #3f86aa;
+    -moz-box-shadow: 0 1px 0 #3f86aa;
+    -webkit-box-shadow: 0 1px 0 #3f86aa;
+    -o-box-shadow: 0 1px 0 #3f86aa;
+    -ms-box-shadow: 0 1px 0 #3f86aa;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    -moz-text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    -webkit-text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    -o-text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    -ms-text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.orange-btn:hover
+{
+    background: #ff8001; /* Old browsers */
+    background: -moz-linear-gradient(top, #ff8001 1%, #ffbe00 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #ff8001), color-stop(100%,#ffbe00)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ff8001 1%,#ffbe00 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ff8001 1%,#ffbe00 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ff8001 1%,#ffbe00 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ff8001 1%,#ffbe00 100%); /* W3C */
+}
+
+.white-btn
+{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #ededed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#ededed 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#ededed 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#ededed 100%); /* W3C */
+    padding: 5px 15px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border: solid 1px #777;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    -o-box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    -ms-box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    color: #777;
+    text-shadow: 0 1px 0 #fff;
+    -moz-text-shadow: 0 1px 0 #fff;
+    -webkit-text-shadow: 0 1px 0 #fff;
+    -o-text-shadow: 0 1px 0 #fff;
+    -ms-text-shadow: 0 1px 0 #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .white-btn:hover
+    {
+        background: #ededed; /* Old browsers */
+        background: -moz-linear-gradient(top, #ededed 0%, #ffffff 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #ededed 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #ededed 0%,#ffffff 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #ededed 0%,#ffffff 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #ededed 0%,#ffffff 100%); /* W3C */
+    }
+/* --------------------------------------- Form Elements ------------------------------------- */
+form
+{
+    margin-bottom: 20px;
+    font: 14px "proximanova", Arial, Helvetica, sans-serif;
+    color: #777;
+}
+
+fieldset
+{
+    margin-bottom: 20px;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], select
+{
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 2px 2px;
+    vertical-align: middle;
+    outline: none;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    margin: 0;
+    width: 100%;
+    display: block;
+    /*margin-bottom: 1em;*/
+}
+
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus
+    {
+        border: 1px solid;
+        border-color: rgba(82, 168, 236, 0.8);
+        color: #444;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(81, 168, 236, 0.5);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(81, 168, 236, 0.5);
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(81, 168, 236, 0.5);
+    }
+
+textarea
+{
+    min-height: 120px;
+}
+
+input[type="checkbox"]
+{
+    display: inline;
+}
+
+label span, legend span
+{
+    font-size: 12px;
+    color: #444;
+}
+/* ----------------------------------------- Fonts ------------------------------------------ */
+
+@font-face
+{
+    font-family: 'open_sansregular';
+    src: url('../../../fonts/open-sans-regular/open-sans-regular.eot');
+    src: url('../../../fonts/open-sans-regular/open-sans-regular.eot?#iefix') format('embedded-opentype'), url('../../../fonts/open-sans-regular/open-sans-regular.woff') format('woff'), url('../../../fonts/open-sans-regular/open-sans-regular.ttf') format('truetype'), url('../../../fonts/open-sans-regular/open-sans-regular.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face
+{
+    font-family: 'MuseoSans500Regular';
+    src: url('../../../fonts/museo-sans-500/museo-sans-500.eot');
+    src: url('../../../fonts/museo-sans-500/museo-sans-500.eot?#iefix') format('embedded-opentype'), url('../../../fonts/museo-sans-500/museo-sans-500.woff') format('woff'), url('../../../fonts/museo-sans-500/museo-sans-500.ttf') format('truetype'), url('../../../fonts/museo-sans-500/museo-sans-500.svg#MuseoSans500Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'HelveticaNeueLTStd77CnBold';
+    src: url('../../../fonts/HelveticaNeueLTStd77CnBold/helveticaneueltstd-bdcn-webfont.eot');
+    src: url('../../../fonts/HelveticaNeueLTStd77CnBold/helveticaneueltstd-bdcn-webfont.eot?#iefix') format('embedded-opentype'), url('../../../fonts/HelveticaNeueLTStd77CnBold/helveticaneueltstd-bdcn-webfont.woff') format('woff'), url('../../../fonts/HelveticaNeueLTStd77CnBold/helveticaneueltstd-bdcn-webfont.ttf') format('truetype'), url('../../../fonts/HelveticaNeueLTStd77CnBold/helveticaneueltstd-bdcn-webfont.svg#HelveticaNeueLTStdCnBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

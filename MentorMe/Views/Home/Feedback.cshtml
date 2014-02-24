@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Feedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/RichText/jquery-1.3.2.js"></script>
+<script src="~/Scripts/RichText/jquery-ui-1.7.2.custom.min.js"></script>
+<link href="~/Content/style/jqueryui/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+
+<script src="~/Scripts/RichText/jHtmlArea-0.7.5.js"></script>
+<link href="~/Content/style/jHtmlArea.css" rel="stylesheet" />
+<link href="~/Content/reset.css" rel="stylesheet" />
+<style type="text/css">
+    iframe
+    {
+        background-color:#FFFFFF;        
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#RichTextEditor").htmlarea();
+        $('#CommentBtn').click(function () {
+            $('#Comments').append('<li><h1>' + $('#CommentTitle').val() + '</h1><br/><div>' + $('#RichTextEditor').htmlarea('html') + '</div></li>');
+            $('#CommentTitle').val('');
+            $('#RichTextEditor').htmlarea('html', ' ')
+        });
+
+        $('#ClearBtn').click(function () {
+            $('#RichTextEditor').htmlarea('html', '  ')
+        });
+    });
+</script>
+<div id="DicusstionContainer">
+    <ul id="Comments"></ul>
+</div>
+<h1>harishankar is a good boy</h1>
+<p>Title:</p><input type="text" id="CommentTitle" />
+<p>Comments:</p><textarea id="RichTextEditor" cols="0" rows="10" style="background-color:#FFF;"></textarea>
+<input type="button" id="CommentBtn" value="COMMENT" />
+<input type="button" id="ClearBtn" value="CLEAR" />

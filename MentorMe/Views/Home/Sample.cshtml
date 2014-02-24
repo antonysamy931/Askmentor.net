@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sample</title>
+    <script src="~/Scripts/RichText/jquery-1.3.2.js"></script>
+    @*<script src="~/Scripts/RichText/jquery-ui-1.7.2.custom.min.js"></script>*@
+    @*<link href="~/Content/style/jqueryui/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />*@
+
+    <script src="~/Scripts/RichText/jHtmlArea-0.7.5.js"></script>
+    <link href="~/Content/style/jHtmlArea.css" rel="stylesheet" />
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#RichTextEditor").htmlarea();
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <textarea id="RichTextEditor" cols="50" rows="15"></textarea>
+    </div>
+</body>
+</html>
