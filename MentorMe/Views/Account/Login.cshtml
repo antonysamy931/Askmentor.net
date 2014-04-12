@@ -8,6 +8,9 @@
     <h1>@ViewBag.Title.</h1>
 </hgroup>
 
+<iframe id="logoutframe" src="https://accounts.google.com/logout" style="display:none;"></iframe>
+<iframe src="https://login.yahoo.com/config/login?logout=1" style="display:none;"></iframe>
+
 <section id="loginForm">
 <h2>Use a local account to log in.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {

@@ -26,6 +26,10 @@ namespace MentorMe.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Provider { get; set; }
     }
 
     public class RegisterExternalLoginModel
@@ -33,7 +37,9 @@ namespace MentorMe.Models
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
-
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
         public string ExternalLoginData { get; set; }
     }
 
@@ -75,7 +81,15 @@ namespace MentorMe.Models
     {
         [Required]
         [Display(Name = "User name")]
+        [RegularExpression("^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$", ErrorMessage="Enter valid email address")]
+        [Remote("IsUserNameAvailable","Validation")]
         public string UserName { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

@@ -39,15 +39,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.4.2\lib\net40-client\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml.Linq" />
@@ -183,8 +186,13 @@
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\GoogleCustomClient.cs" />
+    <Compile Include="App_Start\GooglePlusClient.cs" />
+    <Compile Include="App_Start\LinkedInCustomClient.cs" />
+    <Compile Include="App_Start\MyFacebookClient.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\YahooCustomClient.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AskmentorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,6 +200,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404090534022_Update.cs" />
+    <Compile Include="Migrations\201404090534022_Update.Designer.cs" />
+    <Compile Include="Migrations\201404090535527_Update1.cs" />
+    <Compile Include="Migrations\201404090535527_Update1.Designer.cs" />
+    <Compile Include="Migrations\201404101044026_update2.cs" />
+    <Compile Include="Migrations\201404101044026_update2.Designer.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AskmentorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -272,8 +287,15 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\zocial-regular-webfont.svg" />
+    <Content Include="Content\zocial.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Content\zocial-regular-webfont.eot" />
+    <Content Include="Content\zocial-regular-webfont.ttf" />
+    <Content Include="Content\zocial-regular-webfont.woff" />
+    <Content Include="Content\zocial.less" />
+    <None Include="Properties\PublishProfiles\AskMentor.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -348,6 +370,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404090534022_Update.resx" />
+    <EmbeddedResource Include="Migrations\201404090535527_Update1.resx" />
+    <EmbeddedResource Include="Migrations\201404101044026_update2.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

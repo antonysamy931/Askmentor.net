@@ -16,9 +16,9 @@ else
         <legend>Log in using another service</legend>
         <p>
         @foreach (AuthenticationClientData p in Model)
-        {
-            <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">@p.DisplayName</button>
-        }
+{
+    <button class="zocial @p.AuthenticationClient.ProviderName.ToLower()" type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">@p.DisplayName</button>
+}
         </p>
     </fieldset>
     }

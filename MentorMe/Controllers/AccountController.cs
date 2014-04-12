@@ -10,6 +10,8 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using MentorMe.Filters;
 using MentorMe.Models;
+using Facebook;
+using Facebook.Reflection;
 
 namespace MentorMe.Controllers
 {
@@ -52,6 +54,25 @@ namespace MentorMe.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            if (Session["provider"] != null)
+            {
+                string oProvider = Session["provider"].ToString();
+                if (oProvider == "facebook")
+                {
+                    var oFacebook = new FacebookClient();
+                    var accessToken = Session["accesstoken"].ToString();
+                    Session.Clear();
+                    var callLogOutkUrl = new Uri(Url.RouteUrl("Default", new { Action = "Login" }, Request.Url.Scheme));
+                    var logoutUrl = oFacebook.GetLogoutUrl(new
+                    {
+                        access_token = accessToken,
+                        next = callLogOutkUrl
+                    });
+                    WebSecurity.Logout();
+                    return new RedirectResult(logoutUrl.AbsoluteUri);
+                }
+            }
+
             WebSecurity.Logout();
 
             return RedirectToAction("Index", "Home");
@@ -79,7 +100,12 @@ namespace MentorMe.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PhoneNumber = model.PhoneNumber
+                    });
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
@@ -164,7 +190,8 @@ namespace MentorMe.Controllers
 
                     if (changePasswordSucceeded)
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                        return RedirectToAction("Index", "Home");
+                        //return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
                     }
                     else
                     {
@@ -187,7 +214,8 @@ namespace MentorMe.Controllers
                     try
                     {
                         WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+                        return RedirectToAction("Index", "Home");
+                        //return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
                     catch (Exception)
                     {
@@ -217,10 +245,39 @@ namespace MentorMe.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
+            GooglePlusClient.RewriteRequest();
+            string firstname = string.Empty;
+            string lastname = string.Empty;
+            string email = string.Empty;
+
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
+            }
+
+            if (result.ExtraData.ContainsKey("accesstoken"))
+            {
+                Session["accesstoken"] = result.ExtraData["accesstoken"].ToString();
+                Session["provider"] = result.Provider.ToLower();
+                if (result.Provider.ToLower() == "linkedin")
+                {
+                    firstname = result.ExtraData["firstname"].ToString();
+                    lastname = result.ExtraData["lastname"].ToString();
+                    email = result.ExtraData["email"].ToString();
+                }
+                else if (result.Provider.ToLower() == "googleplus")
+                {
+                    firstname = result.ExtraData["name"].ToString();
+                    lastname = result.ExtraData["family_name"].ToString();
+                    email = result.ExtraData["email"].ToString();
+                }
+                else if (result.Provider.ToLower() == "facebook")
+                {
+                    firstname = result.ExtraData["firstname"].ToString();
+                    lastname = result.ExtraData["lastname"].ToString();
+                    email = result.ExtraData["email"].ToString();
+                }
             }
 
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
@@ -240,7 +297,7 @@ namespace MentorMe.Controllers
                 string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                 ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, FirstName = firstname, LastName = lastname, Email = email, ExternalLoginData = loginData });
             }
         }
 
@@ -269,18 +326,41 @@ namespace MentorMe.Controllers
                     // Check if user already exists
                     if (user == null)
                     {
-                        // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        if (Session["provider"] != null)
+                        {
+                            if (Session["provider"].ToString().ToLower() == "linkedin" || Session["provider"].ToString().ToLower() == "googleplus" || Session["provider"].ToString().ToLower() == "facebook")
+                            {
+                                db.UserProfiles.Add(new UserProfile { UserName = model.UserName, FirstName = model.FirstName, LastName = model.LastName, Provider = provider });
+                            }
+                            else
+                            {
+                                // Insert name into the profile table
+                                db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Provider = provider });
+                            }
+                        }
+                        else
+                        {
+                            // Insert name into the profile table
+                            db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Provider = provider });
+                        }
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                        var oProvider = db.UserProfiles.Where(x => x.UserName.ToLower() == model.UserName.ToLower()).Select(x => x.Provider).FirstOrDefault();
+                        if (oProvider == null)
+                        {
+                            ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("UserName", "User name already register using '" + oProvider.ToString() + "' provider.");
+                        }
                     }
                 }
             }

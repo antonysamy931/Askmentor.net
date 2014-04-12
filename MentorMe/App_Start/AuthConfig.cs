@@ -27,6 +27,21 @@ namespace MentorMe
             //    appSecret: "");
 
             //OAuthWebSecurity.RegisterGoogleClient();
+
+            //Google client
+            OAuthWebSecurity.RegisterClient(new MentorMe.GoogleCustomClient(), displayName: "Google", extraData: null);
+
+            //Google plus client
+            OAuthWebSecurity.RegisterClient(new MentorMe.GooglePlusClient("", ""), displayName: "Google+", extraData: null);
+
+            //Yahoo client
+            OAuthWebSecurity.RegisterClient(new MentorMe.YahooCustomClient(), displayName: "Yahoo", extraData: null);
+
+            //LinkedIn client
+            OAuthWebSecurity.RegisterClient(new MentorMe.LinkedInCustomClient("", ""), displayName: "LinkedIn", extraData: null);
+
+            //Facebook client
+            OAuthWebSecurity.RegisterClient(new MentorMe.MyFacebookClient("", ""), displayName: "Facebook", extraData: null);
         }
     }
 }
