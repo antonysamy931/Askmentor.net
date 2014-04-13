@@ -1,4 +1,4 @@
-namespace InternetApp.Migrations
+namespace MentorMe.Migrations
 {
     using System;
     using System.Data.Entity;

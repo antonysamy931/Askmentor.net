@@ -196,16 +196,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AskmentorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201404090534022_Update.cs" />
-    <Compile Include="Migrations\201404090534022_Update.Designer.cs" />
-    <Compile Include="Migrations\201404090535527_Update1.cs" />
-    <Compile Include="Migrations\201404090535527_Update1.Designer.cs" />
-    <Compile Include="Migrations\201404101044026_update2.cs" />
-    <Compile Include="Migrations\201404101044026_update2.Designer.cs" />
+    <Compile Include="Migrations\201404131932509_init.cs" />
+    <Compile Include="Migrations\201404131932509_init.Designer.cs">
+      <DependentUpon>201404131932509_init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AskmentorModel.cs" />
@@ -322,7 +321,9 @@
     <None Include="Scripts\RichText\jquery-1.3.2.min-vsdoc.js" />
     <Content Include="Scripts\RichText\jquery-1.3.2.min.js" />
     <Content Include="Scripts\RichText\jquery-ui-1.7.2.custom.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -372,9 +373,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201404090534022_Update.resx" />
-    <EmbeddedResource Include="Migrations\201404090535527_Update1.resx" />
-    <EmbeddedResource Include="Migrations\201404101044026_update2.resx" />
+    <EmbeddedResource Include="Migrations\201404131932509_init.resx">
+      <DependentUpon>201404131932509_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
