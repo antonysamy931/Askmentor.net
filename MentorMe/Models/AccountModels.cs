@@ -23,6 +23,7 @@ namespace MentorMe.Models
         public DbSet<Role> Roles { get; set; }
         public DbSet<OAuthMembership> OAuthMembership { get; set; }
         public DbSet<UsersInRole> UserInRole { get; set; }
+        public DbSet<ErrorLog> ErrorsLog { get; set; }
 
         #endregion
     }
@@ -122,6 +123,17 @@ namespace MentorMe.Models
         public string RoleName { get; set; }
         [ForeignKey("RoleId")]
         public ICollection<UsersInRole> UsersInRoles { get; set; }
+    }
+
+    [Table("Error_log", Schema = "dbo")]
+    public class ErrorLog
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int ErrorId { get; set; }
+        public string ExceptionMessage { get; set; }
+        public string ExceptionStackTrace { get; set; }
+        public string ErrorLogDate { get; set; }
     }
 
     #endregion

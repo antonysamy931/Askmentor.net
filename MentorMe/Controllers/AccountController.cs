@@ -54,27 +54,37 @@ namespace MentorMe.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            if (Session["provider"] != null)
+            try
             {
-                string oProvider = Session["provider"].ToString();
-                if (oProvider == "facebook")
+                if (Session["provider"] != null)
                 {
-                    var oFacebook = new FacebookClient();
-                    var accessToken = Session["accesstoken"].ToString();
-                    Session.Clear();
-                    var callLogOutkUrl = new Uri(Url.RouteUrl("Default", new { Action = "Login" }, Request.Url.Scheme));
-                    var logoutUrl = oFacebook.GetLogoutUrl(new
+                    string oProvider = Session["provider"].ToString();
+                    if (oProvider == "facebook")
                     {
-                        access_token = accessToken,
-                        next = callLogOutkUrl
-                    });
-                    WebSecurity.Logout();
-                    return new RedirectResult(logoutUrl.AbsoluteUri);
+                        var oFacebook = new FacebookClient();
+                        var accessToken = Session["accesstoken"].ToString();
+                        Session.Clear();
+                        var callLogOutkUrl = new Uri(Url.RouteUrl("Default", new { Action = "Login" }, Request.Url.Scheme));
+                        var logoutUrl = oFacebook.GetLogoutUrl(new
+                        {
+                            access_token = accessToken,
+                            next = callLogOutkUrl
+                        });
+                        WebSecurity.Logout();
+                        return new RedirectResult(logoutUrl.AbsoluteUri);
+                    }
+                }
+
+                WebSecurity.Logout();
+            }
+            catch (Exception ex)
+            {
+                using(UsersContext db=new UsersContext ())
+                {
+                    db.ErrorsLog.Add(new ErrorLog { ExceptionMessage = ex.Message, ExceptionStackTrace = ex.StackTrace, ErrorLogDate = DateTime.Now.ToString() });
+                    db.SaveChanges();
                 }
             }
-
-            WebSecurity.Logout();
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -245,60 +255,72 @@ namespace MentorMe.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
-            GooglePlusClient.RewriteRequest();
-            string firstname = string.Empty;
-            string lastname = string.Empty;
-            string email = string.Empty;
-
-            AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-            if (!result.IsSuccessful)
+            try
             {
-                return RedirectToAction("ExternalLoginFailure");
-            }
+                GooglePlusClient.RewriteRequest();
+                string firstname = string.Empty;
+                string lastname = string.Empty;
+                string email = string.Empty;
 
-            if (result.ExtraData.ContainsKey("accesstoken"))
-            {
-                Session["accesstoken"] = result.ExtraData["accesstoken"].ToString();
-                Session["provider"] = result.Provider.ToLower();
-                if (result.Provider.ToLower() == "linkedin")
+                AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+                if (!result.IsSuccessful)
                 {
-                    firstname = result.ExtraData["firstname"].ToString();
-                    lastname = result.ExtraData["lastname"].ToString();
-                    email = result.ExtraData["email"].ToString();
+                    return RedirectToAction("ExternalLoginFailure");
                 }
-                else if (result.Provider.ToLower() == "googleplus")
-                {
-                    firstname = result.ExtraData["name"].ToString();
-                    lastname = result.ExtraData["family_name"].ToString();
-                    email = result.ExtraData["email"].ToString();
-                }
-                else if (result.Provider.ToLower() == "facebook")
-                {
-                    firstname = result.ExtraData["firstname"].ToString();
-                    lastname = result.ExtraData["lastname"].ToString();
-                    email = result.ExtraData["email"].ToString();
-                }
-            }
 
-            if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
-            {
-                return RedirectToLocal(returnUrl);
-            }
+                if (result.ExtraData.ContainsKey("accesstoken"))
+                {
+                    Session["accesstoken"] = result.ExtraData["accesstoken"].ToString();
+                    Session["provider"] = result.Provider.ToLower();
+                    if (result.Provider.ToLower() == "linkedin")
+                    {
+                        firstname = result.ExtraData["firstname"].ToString();
+                        lastname = result.ExtraData["lastname"].ToString();
+                        email = result.ExtraData["email"].ToString();
+                    }
+                    else if (result.Provider.ToLower() == "googleplus")
+                    {
+                        firstname = result.ExtraData["name"].ToString();
+                        lastname = result.ExtraData["family_name"].ToString();
+                        email = result.ExtraData["email"].ToString();
+                    }
+                    else if (result.Provider.ToLower() == "facebook")
+                    {
+                        firstname = result.ExtraData["firstname"].ToString();
+                        lastname = result.ExtraData["lastname"].ToString();
+                        email = result.ExtraData["email"].ToString();
+                    }
+                }
 
-            if (User.Identity.IsAuthenticated)
-            {
-                // If the current user is logged in add the new account
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-                return RedirectToLocal(returnUrl);
+                if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
+                {
+                    return RedirectToLocal(returnUrl);
+                }
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    // If the current user is logged in add the new account
+                    OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
+                    return RedirectToLocal(returnUrl);
+                }
+                else
+                {
+                    // User is new, ask for their desired membership name
+                    string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+                    ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+                    ViewBag.ReturnUrl = returnUrl;
+                    return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, FirstName = firstname, LastName = lastname, Email = email, ExternalLoginData = loginData });
+                }
             }
-            else
+            catch(Exception ex)
             {
-                // User is new, ask for their desired membership name
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, FirstName = firstname, LastName = lastname, Email = email, ExternalLoginData = loginData });
+                using (UsersContext db = new UsersContext())
+                {
+                    db.ErrorsLog.Add(new ErrorLog { ExceptionMessage = ex.Message, ExceptionStackTrace = ex.StackTrace, ErrorLogDate = DateTime.Now.ToString() });
+                    db.SaveChanges();
+                }
             }
+            return RedirectToLocal(returnUrl);
         }
 
         //
@@ -311,62 +333,72 @@ namespace MentorMe.Controllers
         {
             string provider = null;
             string providerUserId = null;
-
-            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+            try
             {
-                return RedirectToAction("Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Insert a new user into the database
-                using (UsersContext db = new UsersContext())
+                if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-                    // Check if user already exists
-                    if (user == null)
+                    return RedirectToAction("Manage");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    // Insert a new user into the database
+                    using (UsersContext db = new UsersContext())
                     {
-                        if (Session["provider"] != null)
+                        UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                        // Check if user already exists
+                        if (user == null)
                         {
-                            if (Session["provider"].ToString().ToLower() == "linkedin" || Session["provider"].ToString().ToLower() == "googleplus" || Session["provider"].ToString().ToLower() == "facebook")
+                            if (Session["provider"] != null)
                             {
-                                db.UserProfiles.Add(new UserProfile { UserName = model.UserName, FirstName = model.FirstName, LastName = model.LastName, Provider = provider });
+                                if (Session["provider"].ToString().ToLower() == "linkedin" || Session["provider"].ToString().ToLower() == "googleplus" || Session["provider"].ToString().ToLower() == "facebook")
+                                {
+                                    db.UserProfiles.Add(new UserProfile { UserName = model.UserName, FirstName = model.FirstName, LastName = model.LastName, Provider = provider });
+                                }
+                                else
+                                {
+                                    // Insert name into the profile table
+                                    db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Provider = provider });
+                                }
                             }
                             else
                             {
                                 // Insert name into the profile table
                                 db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Provider = provider });
                             }
+                            db.SaveChanges();
+
+                            OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+                            OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+
+                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {
-                            // Insert name into the profile table
-                            db.UserProfiles.Add(new UserProfile { UserName = model.UserName, Provider = provider });
-                        }
-                        db.SaveChanges();
-
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        var oProvider = db.UserProfiles.Where(x => x.UserName.ToLower() == model.UserName.ToLower()).Select(x => x.Provider).FirstOrDefault();
-                        if (oProvider == null)
-                        {
-                            ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("UserName", "User name already register using '" + oProvider.ToString() + "' provider.");
+                            var oProvider = db.UserProfiles.Where(x => x.UserName.ToLower() == model.UserName.ToLower()).Select(x => x.Provider).FirstOrDefault();
+                            if (oProvider == null)
+                            {
+                                ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("UserName", "User name already register using '" + oProvider.ToString() + "' provider.");
+                            }
                         }
                     }
                 }
-            }
 
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-            ViewBag.ReturnUrl = returnUrl;
+                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
+                ViewBag.ReturnUrl = returnUrl;
+            }
+            catch(Exception ex)
+            {
+                using (UsersContext db = new UsersContext())
+                {
+                    db.ErrorsLog.Add(new ErrorLog { ExceptionMessage = ex.Message, ExceptionStackTrace = ex.StackTrace, ErrorLogDate = DateTime.Now.ToString() });
+                    db.SaveChanges();
+                }
+            }
             return View(model);
         }
 
