@@ -292,6 +292,7 @@ namespace MentorMe.Controllers
                     }
                 }
 
+                //User name already register check with websecurity(checking point-redirect to main page)
                 if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
                 {
                     return RedirectToLocal(returnUrl);
