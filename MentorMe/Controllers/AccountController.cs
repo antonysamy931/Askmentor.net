@@ -305,8 +305,9 @@ namespace MentorMe.Controllers
                 }
                 else
                 {
+
                     // User is new, ask for their desired membership name
-                    string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+                    string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);                    
                     ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                     ViewBag.ReturnUrl = returnUrl;
                     return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, FirstName = firstname, LastName = lastname, Email = email, ExternalLoginData = loginData });

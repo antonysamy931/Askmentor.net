@@ -39,18 +39,6 @@ namespace MentorMe.Migrations
                 .PrimaryKey(t => t.UserId);
             
             CreateTable(
-                "dbo.webpages_OAuthMembership",
-                c => new
-                    {
-                        Provider = c.String(nullable: false, maxLength: 30),
-                        ProviderUserId = c.String(nullable: false, maxLength: 100),
-                        UserId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.Provider, t.ProviderUserId })
-                .ForeignKey("dbo.webpages_Membership", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
                 "dbo.webpages_UsersInRoles",
                 c => new
                     {
@@ -72,19 +60,39 @@ namespace MentorMe.Migrations
                     })
                 .PrimaryKey(t => t.RoleId);
             
+            CreateTable(
+                "dbo.webpages_OAuthMembership",
+                c => new
+                    {
+                        Provider = c.String(nullable: false, maxLength: 30),
+                        ProviderUserId = c.String(nullable: false, maxLength: 100),
+                        UserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Provider, t.ProviderUserId });
+            
+            CreateTable(
+                "dbo.Error_log",
+                c => new
+                    {
+                        ErrorId = c.Int(nullable: false, identity: true),
+                        ExceptionMessage = c.String(),
+                        ExceptionStackTrace = c.String(),
+                        ErrorLogDate = c.String(),
+                    })
+                .PrimaryKey(t => t.ErrorId);
+            
         }
         
         public override void Down()
         {
             DropIndex("dbo.webpages_UsersInRoles", new[] { "UserId" });
             DropIndex("dbo.webpages_UsersInRoles", new[] { "RoleId" });
-            DropIndex("dbo.webpages_OAuthMembership", new[] { "UserId" });
             DropForeignKey("dbo.webpages_UsersInRoles", "UserId", "dbo.webpages_Membership");
             DropForeignKey("dbo.webpages_UsersInRoles", "RoleId", "dbo.webpages_Roles");
-            DropForeignKey("dbo.webpages_OAuthMembership", "UserId", "dbo.webpages_Membership");
+            DropTable("dbo.Error_log");
+            DropTable("dbo.webpages_OAuthMembership");
             DropTable("dbo.webpages_Roles");
             DropTable("dbo.webpages_UsersInRoles");
-            DropTable("dbo.webpages_OAuthMembership");
             DropTable("dbo.webpages_Membership");
             DropTable("dbo.UserProfile");
         }

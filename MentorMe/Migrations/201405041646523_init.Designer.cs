@@ -5,13 +5,13 @@ namespace MentorMe.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class errorlog : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(errorlog));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201404260511198_errorlog"; }
+            get { return "201405041646523_init"; }
         }
         
         string IMigrationMetadata.Source

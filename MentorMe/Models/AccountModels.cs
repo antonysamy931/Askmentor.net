@@ -49,7 +49,7 @@ namespace MentorMe.Models
         public Membership()
         {
             //Roles = new List<Role>();
-            OAuthMemberships = new List<OAuthMembership>();
+            //OAuthMemberships = new List<OAuthMembership>();
             UsersInRoles = new List<UsersInRole>();
         }
 
@@ -71,8 +71,8 @@ namespace MentorMe.Models
         public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
         //public ICollection<Role> Roles { get; set; }
 
-        [ForeignKey("UserId")]
-        public ICollection<OAuthMembership> OAuthMemberships { get; set; }
+        //[ForeignKey("UserId")]
+        //public ICollection<OAuthMembership> OAuthMemberships { get; set; }
 
         [ForeignKey("UserId")]
         public ICollection<UsersInRole> UsersInRoles { get; set; }
@@ -89,8 +89,8 @@ namespace MentorMe.Models
 
         public int UserId { get; set; }
 
-        [Column("UserId"), InverseProperty("OAuthMemberships")]
-        public Membership User { get; set; }
+        //[Column("UserId"), InverseProperty("OAuthMemberships")]
+        //public Membership User { get; set; }
     }
 
     [Table("webpages_UsersInRoles", Schema = "dbo")]
