@@ -5,13 +5,13 @@ namespace MentorMe.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class threetable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(threetable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201405041646523_init"; }
+            get { return "201405110835438_threetable"; }
         }
         
         string IMigrationMetadata.Source

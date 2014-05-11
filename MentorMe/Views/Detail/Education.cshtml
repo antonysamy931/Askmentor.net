@@ -1,0 +1,148 @@
+﻿@model MentorMe.Models.ModelEducation
+
+@{
+    ViewBag.Title = "Education";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Education</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Education Detail</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Graduation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Graduation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EducationMode)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.EducationMode, new SelectList(Model.Modes), "--Select--")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Specialization)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Specialization)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.University)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.University)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.YearComplete)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.YearComplete)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostGraduation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostGraduation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostGraduationEducationMode)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.PostGraduationEducationMode, new SelectList(Model.Modes), "--Select--")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostSpecialization)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostSpecialization)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostUniversity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostUniversity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostYearComplete)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostYearComplete)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Doctorate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Doctorate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorateEducationMode)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.DoctorateEducationMode, new SelectList(Model.Modes), "--Select")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorateSpecialization)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DoctorateSpecialization)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorateUniversity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DoctorateUniversity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DoctorateYearComplete)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DoctorateYearComplete)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Certification)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Certification)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Grade)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Grade)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Skip", "")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

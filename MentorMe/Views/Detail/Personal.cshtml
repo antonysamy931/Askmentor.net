@@ -1,0 +1,122 @@
+﻿@model MentorMe.Models.ModelPerson
+
+@{
+    ViewBag.Title = "Personal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Personal</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Personal Detail</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PersonName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PersonName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateOfBirth)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateOfBirth)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gender)
+        </div>
+        <div class="editor-field">
+            @Html.RadioButtonFor(model=>model.Gender,true)Male
+            @Html.RadioButtonFor(model=>model.Gender,false)Female
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Marital)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model=>model.Marital,new SelectList(Model.MaritalCollection),"--Select--")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MobileNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MobileNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model=>model.ExtentionCode)
+            @Html.EditorFor(model => model.PhoneNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AlternateEmail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AlternateEmail)
+            @Html.ValidationMessageFor(model => model.AlternateEmail)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddressOne)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddressOne)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddressTwo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddressTwo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.State)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.State)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Country)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Country)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PostalCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PostalCode)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Skip", "Education","Detail")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
