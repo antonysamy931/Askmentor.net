@@ -39,6 +39,36 @@ namespace MentorMe.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                using (var context = new UsersContext())
+                {
+                    Session["UserName"] = model.UserName;
+                    var oUser = context.UserProfiles.Where(x => x.UserName == model.UserName).FirstOrDefault();
+                    if (oUser != null)
+                    {
+                        if (context.PersonalDetails.Where(x => x.UserId == oUser.UserId).Any())
+                        {
+                            if (context.Education.Any(x => x.UserId == oUser.UserId))
+                            {
+                                if (context.AreaOfIntrests.Any(x => x.UserId == oUser.UserId))
+                                {
+                                    return RedirectToAction("Index", "Home");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Interest", "Detail");
+                                }
+                            }
+                            else
+                            {
+                                return RedirectToAction("Education", "Detail");
+                            }
+                        }
+                        else
+                        {
+                            return RedirectToAction("Personal", "Detail");
+                        }
+                    }
+                }
                 return RedirectToLocal(returnUrl);
             }
 
@@ -47,6 +77,14 @@ namespace MentorMe.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        public ActionResult LogOff(string returnUrl)
+        {
+            WebSecurity.Logout();
+            return RedirectToAction("Index", "Home"); 
+        }
+        
         //
         // POST: /Account/LogOff
 
@@ -79,7 +117,7 @@ namespace MentorMe.Controllers
             }
             catch (Exception ex)
             {
-                using(UsersContext db=new UsersContext ())
+                using (UsersContext db = new UsersContext())
                 {
                     db.ErrorsLog.Add(new ErrorLog { ExceptionMessage = ex.Message, ExceptionStackTrace = ex.StackTrace, ErrorLogDate = DateTime.Now.ToString() });
                     db.SaveChanges();
@@ -117,6 +155,36 @@ namespace MentorMe.Controllers
                         PhoneNumber = model.PhoneNumber
                     });
                     WebSecurity.Login(model.UserName, model.Password);
+                    Session["UserName"] = model.UserName;
+                    using (var context = new UsersContext())
+                    {
+                        var oUser = context.UserProfiles.Where(x => x.UserName == model.UserName).FirstOrDefault();
+                        if (oUser != null)
+                        {
+                            if (context.PersonalDetails.Where(x => x.UserId == oUser.UserId).Any())
+                            {
+                                if (context.Education.Any(x => x.UserId == oUser.UserId))
+                                {
+                                    if (context.AreaOfIntrests.Any(x => x.UserId == oUser.UserId))
+                                    {
+                                        return RedirectToAction("Index", "Home");
+                                    }
+                                    else
+                                    {
+                                        return RedirectToAction("Interest", "Detail");
+                                    }
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Education", "Detail");
+                                }
+                            }
+                            else
+                            {
+                                return RedirectToAction("Personal", "Detail");
+                            }
+                        }
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -295,6 +363,36 @@ namespace MentorMe.Controllers
                 //User name already register check with websecurity(checking point-redirect to main page)
                 if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
                 {
+                    Session["UserName"] = email;
+                    using (var context = new UsersContext())
+                    {
+                        var oUser = context.UserProfiles.Where(x => x.UserName == email).FirstOrDefault();
+                        if (oUser != null)
+                        {
+                            if (context.PersonalDetails.Where(x => x.UserId == oUser.UserId).Any())
+                            {
+                                if (context.Education.Any(x => x.UserId == oUser.UserId))
+                                {
+                                    if (context.AreaOfIntrests.Any(x => x.UserId == oUser.UserId))
+                                    {
+                                        return RedirectToAction("Index", "Home");
+                                    }
+                                    else
+                                    {
+                                        return RedirectToAction("Interest", "Detail");
+                                    }
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Education", "Detail");
+                                }
+                            }
+                            else
+                            {
+                                return RedirectToAction("Personal", "Detail");
+                            }
+                        }
+                    }
                     return RedirectToLocal(returnUrl);
                 }
 
@@ -308,13 +406,13 @@ namespace MentorMe.Controllers
                 {
 
                     // User is new, ask for their desired membership name
-                    string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);                    
+                    string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
                     ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
                     ViewBag.ReturnUrl = returnUrl;
                     return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, FirstName = firstname, LastName = lastname, Email = email, ExternalLoginData = loginData });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 using (UsersContext db = new UsersContext())
                 {
@@ -373,6 +471,37 @@ namespace MentorMe.Controllers
                             OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
                             OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
+                            using (var context = new UsersContext())
+                            {
+                                Session["UserName"] = model.UserName;
+                                var oUser = context.UserProfiles.Where(x => x.UserName == model.UserName).FirstOrDefault();
+                                if (oUser != null)
+                                {
+                                    if (context.PersonalDetails.Where(x => x.UserId == oUser.UserId).Any())
+                                    {
+                                        if (context.Education.Any(x => x.UserId == oUser.UserId))
+                                        {
+                                            if (context.AreaOfIntrests.Any(x => x.UserId == oUser.UserId))
+                                            {
+                                                return RedirectToAction("Index", "Home");
+                                            }
+                                            else
+                                            {
+                                                return RedirectToAction("Interest", "Detail");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            return RedirectToAction("Education", "Detail");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return RedirectToAction("Personal", "Detail");
+                                    }
+                                }
+                            }
+
                             return RedirectToAction("Index", "Home");
                         }
                         else
@@ -393,7 +522,7 @@ namespace MentorMe.Controllers
                 ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
                 ViewBag.ReturnUrl = returnUrl;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 using (UsersContext db = new UsersContext())
                 {

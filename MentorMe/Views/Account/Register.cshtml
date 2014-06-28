@@ -3,46 +3,70 @@
     ViewBag.Title = "Register";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
+<h2 class="text-center">Create a new account.</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type=button]').click(function () {
+            $('input[type=text]').val('');
+            $('input[type=password]').val('');
+        });
+    });
+</script>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-
+    <div class="row">
+        <div class="form-horizontal">
     <fieldset>
         <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.FirstName)
-                @Html.TextBoxFor(m => m.FirstName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.LastName)
-                @Html.TextBoxFor(m => m.LastName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.PhoneNumber)
-                @Html.TextBoxFor(m => m.PhoneNumber)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
+        <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+                @Html.LabelFor(m => m.LastName, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Grade" class="control-label col-md-4 col-xs-4"></label>
+            <div class="col-md-5 col-xs-8">
+                <input type="submit" value="Register" class="btn btn-lg btn-primary"/>
+                <input type="button" value="Clear" class="btn btn-lg btn-primary" />
+            </div>
+        </div>
     </fieldset>
+        </div>
+    </div>
 }
 
 @section Scripts {

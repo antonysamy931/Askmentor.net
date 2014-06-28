@@ -49,6 +49,10 @@ namespace MentorMe.Controllers
                     oPerson.PostalCode = personal.PostalCode;
                     oPerson.State = personal.State;
                 }
+                else
+                {
+                    oPerson.Gender = true;
+                }
             }
             return View(oPerson);
         }

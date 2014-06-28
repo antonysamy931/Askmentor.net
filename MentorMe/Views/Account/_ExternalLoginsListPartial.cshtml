@@ -1,25 +1,33 @@
 ﻿@model ICollection<AuthenticationClientData>
-
+<link href="~/Content/zocial.css" rel="stylesheet" />
 @if (Model.Count == 0)
 {
-    <div class="message-info">
-        <p>There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=252166">this article</a>
-        for details on setting up this ASP.NET application to support logging in via external services.</p>
-    </div>
+
+    <fieldset>
+        <legend>Use another service to log in.</legend>
+        <div class="message-info">
+            <p>
+                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=252166">this article</a>
+                for details on setting up this ASP.NET application to support logging in via external services.
+            </p>
+        </div>
+    </fieldset>
 }
 else
 {
     using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
     {
-    @Html.AntiForgeryToken()
-    <fieldset id="socialLoginList">
-        <legend>Log in using another service</legend>
-        <p>
-        @foreach (AuthenticationClientData p in Model)
-{
-    <button class="zocial @p.AuthenticationClient.ProviderName.ToLower()" type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">@p.DisplayName</button>
-}
-        </p>
+ @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Use another service to log in.</legend>
+        <div class="text-center">
+            @foreach (AuthenticationClientData p in Model)
+            {
+
+                <button class="zocial @p.AuthenticationClient.ProviderName.ToLower()" type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">@p.DisplayName</button>
+            }
+        </div>
     </fieldset>
     }
 }

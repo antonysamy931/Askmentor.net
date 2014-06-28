@@ -33,6 +33,7 @@ namespace MentorMe
 
             //Google plus client
             OAuthWebSecurity.RegisterClient(new MentorMe.GooglePlusClient("269446698098-7fd2hqiruibevrdeq7kdsv1sck44iivl.apps.googleusercontent.com", "OtyS_RCqnp2DiGMb3tBfC1kE"), displayName: "Google+", extraData: null);
+            //OAuthWebSecurity.RegisterClient(new MentorMe.GooglePlusClient("438630834862-0prcidoelutqqnvvm4kocio9g0gq9re7.apps.googleusercontent.com", "OsTouFQ8G-kN1s-8TD63dKJj"), displayName: "Google+", extraData: null);
 
             //Yahoo client
             OAuthWebSecurity.RegisterClient(new MentorMe.YahooCustomClient(), displayName: "Yahoo", extraData: null);

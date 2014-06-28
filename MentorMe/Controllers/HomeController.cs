@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MentorMe.Models;
 
 namespace MentorMe.Controllers
 {
@@ -32,6 +33,32 @@ namespace MentorMe.Controllers
         public ActionResult Feedback()
         {
             return View();
-        }       
+        }
+
+        [HttpPost]
+        public JsonResult InsertFeedback(FeedForm feedForm)
+        {
+            string Result = string.Empty;
+            using (var context = new UsersContext())
+            {
+                FeedForm oFeedForm = new FeedForm();
+                oFeedForm.Comments = feedForm.Comments;
+                oFeedForm.CurrentDate = DateTime.Now.ToString();
+                oFeedForm.Email = feedForm.Email;
+                oFeedForm.Name = feedForm.Name;
+                oFeedForm.Rating = feedForm.Rating;
+                context.Feedbacks.Add(oFeedForm);
+                try
+                {
+                    context.SaveChanges();
+                    Result = "Success";
+                }
+                catch (Exception ex)
+                {
+                    Result = "Failure";
+                }
+            }
+            return Json(new { Result }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

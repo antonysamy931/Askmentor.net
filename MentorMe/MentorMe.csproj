@@ -204,19 +204,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201405110832271_init.cs" />
-    <Compile Include="Migrations\201405110832271_init.Designer.cs">
-      <DependentUpon>201405110832271_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201405110835438_threetable.cs" />
-    <Compile Include="Migrations\201405110835438_threetable.Designer.cs">
-      <DependentUpon>201405110835438_threetable.cs</DependentUpon>
+    <Compile Include="Migrations\201406250418411_init.cs" />
+    <Compile Include="Migrations\201406250418411_init.Designer.cs">
+      <DependentUpon>201406250418411_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Angular-Rating\angular-star.png" />
+    <Content Include="Content\Angular-Rating\angular.ratings.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\Custom.css" />
     <Content Include="Content\style\jHtmlArea.ColorPickerMenu.css" />
     <Content Include="Content\style\jHtmlArea.css" />
     <Content Include="Content\style\jHtmlArea.Editor.css" />
@@ -302,7 +302,29 @@
     <Content Include="Content\zocial.less" />
     <None Include="Properties\PublishProfiles\AskMentor.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\Mentoring Logo.jpg" />
+    <Content Include="Images\mentoring-puzzle.jpg" />
+    <Content Include="Images\mentors-on-mission01.jpg" />
+    <Content Include="Images\slide-01.jpg" />
+    <Content Include="Images\slide-02.jpg" />
+    <Content Include="Images\slide-03.jpg" />
     <Content Include="Models\Sql Script\CreateMembershipErrorlog.sql" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap-alert.js" />
+    <Content Include="Scripts\bootstrap-button.js" />
+    <Content Include="Scripts\bootstrap-carousel.js" />
+    <Content Include="Scripts\bootstrap-collapse.js" />
+    <Content Include="Scripts\bootstrap-dropdown.js" />
+    <Content Include="Scripts\bootstrap-modal.js" />
+    <Content Include="Scripts\bootstrap-popover.js" />
+    <Content Include="Scripts\bootstrap-scrollspy.js" />
+    <Content Include="Scripts\bootstrap-tab.js" />
+    <Content Include="Scripts\bootstrap-tooltip.js" />
+    <Content Include="Scripts\bootstrap-transition.js" />
+    <Content Include="Scripts\bootstrap-typeahead.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Feedback\feed.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -318,6 +340,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <None Include="Scripts\RichText\jHtmlArea-0.7.5-vsdoc.js" />
+    <Content Include="Scripts\Rating-Angular\angular.ratings.js" />
     <Content Include="Scripts\RichText\jHtmlArea-0.7.5.js" />
     <None Include="Scripts\RichText\jHtmlArea-0.7.5.min-vsdoc.js" />
     <Content Include="Scripts\RichText\jHtmlArea-0.7.5.min.js" />
@@ -375,6 +398,7 @@
     <Content Include="Views\Detail\Personal.cshtml" />
     <Content Include="Views\Detail\Education.cshtml" />
     <Content Include="Views\Detail\Interest.cshtml" />
+    <Content Include="Views\Shared\_DetailLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -383,11 +407,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405110832271_init.resx">
-      <DependentUpon>201405110832271_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201405110835438_threetable.resx">
-      <DependentUpon>201405110835438_threetable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406250418411_init.resx">
+      <DependentUpon>201406250418411_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -406,7 +427,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>50032</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:50873/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

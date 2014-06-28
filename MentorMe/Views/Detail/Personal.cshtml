@@ -2,120 +2,145 @@
 
 @{
     ViewBag.Title = "Personal";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_DetailLayout.cshtml";
 }
 
-<h2>Personal</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dateofBirth').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy"            
+        });
+    });
+</script>
+<h2 class="text-center">Personal</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="form-horizontal">
+            <fieldset>
+                <legend>Personal Detail</legend>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PersonName, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.PersonName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateOfBirth, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.DateOfBirth, new { @class = "form-control", @id = "dateofBirth" })
+                    </div>
+                </div>
 
-    <fieldset>
-        <legend>Personal Detail</legend>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-4">
+                                @Html.RadioButtonFor(model => model.Gender, true, new { @selected = "selected" })<label>Male</label>
+                            </div>
+                            <div class="col-md-9 col-xs-8">
+                                @Html.RadioButtonFor(model => model.Gender, false)<label>Female</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PersonName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PersonName)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Marital, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.DropDownListFor(model => model.Marital, new SelectList(Model.MaritalCollection), "--Select--", new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DateOfBirth)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateOfBirth)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MobileNumber, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.MobileNumber, new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Gender)
-        </div>
-        <div class="editor-field">
-            @Html.RadioButtonFor(model=>model.Gender,true)Male
-            @Html.RadioButtonFor(model=>model.Gender,false)Female
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4 col-xs-4">
+                                @Html.TextBoxFor(model => model.ExtentionCode, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-9 col-sm-8 col-xs-8">
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Marital)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model=>model.Marital,new SelectList(Model.MaritalCollection),"--Select--")
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AlternateEmail, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.AlternateEmail, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.AlternateEmail)
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Address Detail</legend>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AddressOne, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.AddressOne, new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MobileNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MobileNumber)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AddressTwo, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.AddressTwo, new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PhoneNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model=>model.ExtentionCode)
-            @Html.EditorFor(model => model.PhoneNumber)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.City, new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AlternateEmail)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AlternateEmail)
-            @Html.ValidationMessageFor(model => model.AlternateEmail)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.State, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.State, new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AddressOne)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AddressOne)
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.Country, new { @class = "form-control" })
+                    </div>
+                </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AddressTwo)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PostalCode, new { @class = "control-label col-md-4 col-xs-4" })
+                    <div class="col-md-5 col-xs-8">
+                        @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Grade" class="control-label col-md-4 col-xs-4"></label>
+                    <div class="col-md-5 col-xs-8">
+                        <input type="submit" value="Create" class="btn btn-lg btn-primary">
+                        <a href="/Detail/Education" class="btn btn-lg btn-primary">Skip</a>
+                    </div>
+                </div>
+            </fieldset>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AddressTwo)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.City)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.City)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.State)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.State)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Country)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Country)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostalCode)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostalCode)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+    </div>
 }
-
-<div>
-    @Html.ActionLink("Skip", "Education","Detail")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

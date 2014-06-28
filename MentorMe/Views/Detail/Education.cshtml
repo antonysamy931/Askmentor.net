@@ -2,146 +2,189 @@
 
 @{
     ViewBag.Title = "Education";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_DetailLayout.cshtml";
 }
-
-<h2>Education</h2>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#undergraduationYearComplete').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy"
+        });
+        $('#postgraduationYearComplete').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy"
+        });
+        $('#doctorateYearofComplete').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy"
+        });
+        $('#addCertificate').click(function () {
+            var parentForm = $(this).parents('div')[1];
+            $(parentForm).prepend('<p>hi</p>')
+        });
+    });
+</script>
+<h2 class="text-center">Education Detail</h2>
+<br /><br />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <fieldset>
-        <legend>Education Detail</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Graduation)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Graduation)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EducationMode)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.EducationMode, new SelectList(Model.Modes), "--Select--")
+    <div class="row">
+        <div class="form-horizontal">        
+        <fieldset>
+            <legend>Under Graduation</legend>
+            <div class="form-group">
+            @Html.LabelFor(model => model.Graduation, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.Graduation, new { @class = "form-control" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Specialization)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Specialization)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.University)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.University)
+        <div class="form-group">
+            @Html.LabelFor(model => model.EducationMode, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.DropDownListFor(model => model.EducationMode, new SelectList(Model.Modes), "--Select--", new { @class = "form-control" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.YearComplete)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.YearComplete)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostGraduation)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostGraduation)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Specialization, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.Specialization, new { @class = "form-control" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostGraduationEducationMode)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.PostGraduationEducationMode, new SelectList(Model.Modes), "--Select--")
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostSpecialization)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostSpecialization)
+        <div class="form-group">
+            @Html.LabelFor(model => model.University, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.University, new { @class = "form-control" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostUniversity)
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearComplete, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.YearComplete, new { @class = "form-control", @id = "undergraduationYearComplete" })
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostUniversity)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PostYearComplete)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PostYearComplete)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Doctorate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Doctorate)
+        </fieldset>
+        
+        <fieldset>
+            <legend>Post Graguation</legend>
+            <div class="form-group">
+            @Html.LabelFor(model => model.PostGraduation, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.PostGraduation, new { @class = "form-control" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DoctorateEducationMode)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.DoctorateEducationMode, new SelectList(Model.Modes), "--Select")
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DoctorateSpecialization)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DoctorateSpecialization)
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostGraduationEducationMode, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.DropDownListFor(model => model.PostGraduationEducationMode, new SelectList(Model.Modes), "--Select--", new { @class = "form-control" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DoctorateUniversity)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DoctorateUniversity)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DoctorateYearComplete)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DoctorateYearComplete)
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostSpecialization, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.PostSpecialization, new { @class = "form-control" })
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Certification)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Certification)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Grade)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Grade)
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostUniversity, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.PostUniversity, new { @class = "form-control" })
+            </div>
         </div>
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostYearComplete, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.PostYearComplete, new { @class = "form-control", @id = "postgraduationYearComplete" })
+            </div>
+        </div>
+
+        </fieldset>
+        
+        <fieldset>
+            <legend>Doctorate / Ph.d</legend>
+            <div class="form-group">
+            @Html.LabelFor(model => model.Doctorate, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.Doctorate, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoctorateEducationMode, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.DropDownListFor(model => model.DoctorateEducationMode, new SelectList(Model.Modes), "--Select", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoctorateSpecialization, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.DoctorateSpecialization, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoctorateUniversity, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.DoctorateUniversity, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoctorateYearComplete, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.DoctorateYearComplete, new { @class = "form-control", @id = "doctorateYearofComplete" })
+            </div>
+        </div>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Other Certification</legend>
+            <div class="certification-group">
+            <div class="form-group">
+            @Html.LabelFor(model => model.Certification, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.Certification, new { @class = "form-control" })
+            </div>
+            </div>
+        
+            <div class="form-group">
+            @Html.LabelFor(model => model.Grade, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.Grade, new { @class = "form-control" })
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-4 col-xs-4"></label>
+            <div class="col-md-5 col-xs-8">                
+                <a href="javascript:void(0)" id="addCertificate" class="">Add Certification</a>
+            </div>
+        </div>
+
+        </fieldset>        
+        <div class="form-group">
+            <label class="control-label col-md-4 col-xs-4"></label>
+            <div class="col-md-5 col-xs-8">
+                <input type="submit" value="Create" class="btn btn-lg btn-primary">
+                <a href="/Detail/Interest" class="btn btn-lg btn-primary">Skip</a>
+            </div>
+        </div>
+    </div>
+    </div>
 }
-
-<div>
-    @Html.ActionLink("Skip", "")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

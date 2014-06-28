@@ -2,41 +2,45 @@
 
 @{
     ViewBag.Title = "Interest";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_DetailLayout.cshtml";
 }
 
-<h2>Interest</h2>
+<h2 class="text-center">Interest</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
-    <fieldset>
+    <div class="row">
+        <div class="form-horizontal">
+        <fieldset>
         <legend>Area Of Interest</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.KeySkill)
+        <div class="form-group">
+            @Html.LabelFor(model => model.KeySkill, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.KeySkill, new { @class = "form-control" })
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.KeySkill)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Experiance, new { @class = "control-label col-md-4 col-xs-4" })
+            <div class="col-md-5 col-xs-8">
+                @Html.TextBoxFor(model => model.Experiance, new { @class = "form-control" })
+            </div>
+        </div>       
+        <div class="form-group">
+            <label for="Grade" class="control-label col-md-4 col-xs-4"></label>
+            <div class="col-md-5 col-xs-8">
+                <input type="submit" value="Create" class="btn btn-lg btn-primary">
+                <a href="/Home/Index" class="btn btn-lg btn-primary">Skip</a>
+            </div>
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Experiance)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Experiance)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+       
     </fieldset>
+    </div>
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Skip", "Dashboard")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

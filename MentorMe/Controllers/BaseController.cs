@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MentorMe.Models;
 using System.Web.Routing;
+using WebMatrix.WebData;
 
 namespace MentorMe.Controllers
 {
@@ -20,7 +21,19 @@ namespace MentorMe.Controllers
         {
             try
             {
-                base.OnActionExecuted(filterContext);
+                if (Session["UserName"] == null)
+                {
+                    //WebSecurity.Logout();
+                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
+                    {
+                        controller = "Account",
+                        action = "LogOff"
+                    }));
+                }
+                else
+                {
+                    base.OnActionExecuted(filterContext);
+                }
             }
             catch (Exception ex)
             {

@@ -27,6 +27,7 @@ namespace MentorMe.Models
         public DbSet<PersonalDetail> PersonalDetails { get; set; }
         public DbSet<Education> Education { get; set; }
         public DbSet<AreaOfIntrest> AreaOfIntrests { get; set; }
+        public DbSet<FeedForm> Feedbacks { get; set; }
         #endregion
     }
 
@@ -198,6 +199,18 @@ namespace MentorMe.Models
         public string Country { get; set; }
         public string PostalCode { get; set; }
     }
+
+    [Table("User_feedback",Schema="dbo")]
+    public class FeedForm{
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int FeedId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Rating { get; set; }
+        public string Comments { get; set; }
+        public string CurrentDate { get; set; }
+    }
     #endregion
 
     public class RegisterExternalLoginModel
@@ -207,7 +220,7 @@ namespace MentorMe.Models
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
+        public string Email { get; set; }        
         public string ExternalLoginData { get; set; }
     }
 
@@ -320,8 +333,7 @@ namespace MentorMe.Models
 
         public List<string> Modes
         {
-            get { return this._Modes; }
-            set { this._Modes = new List<string>() { "Full Time", "Part Time", "Correspond" }; }
+            get { return this._Modes = new List<string>() { "Full Time", "Part Time", "Correspond" }; }            
         }
 
         [Display(Name = "Specialization")]
@@ -500,11 +512,7 @@ namespace MentorMe.Models
         {
             get
             {
-                return this._MaritalCollection;
-            }
-            set
-            {
-                this._MaritalCollection = new List<string>() { "Single", "Married" };
+                return this._MaritalCollection = new List<string>() { "Single", "Married" }; ;
             }
         }
 
