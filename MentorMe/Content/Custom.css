@@ -1,0 +1,52 @@
+﻿.navbar
+{
+    margin-bottom: 0;
+}
+
+.carousel-control
+{
+    background-color: rgba(0, 0, 0, 0);
+    border: 0 none;
+    font-size: 120px;
+    height: 80px;
+    margin-top: 0;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    top:25%;    
+}
+
+.carousel-control.left, .carousel-control.right
+{
+    background-image:none;
+}
+
+.checkbox
+{
+    padding:0 !important;
+}
+
+.error-container
+{
+    color: #FF0000;
+}
+
+/*Responsive CSS start Here*/
+@media (min-width: 767px)
+{
+}
+
+@media (max-width: 800px)
+{
+}
+
+@media (max-width: 767px)
+{
+    .carousel-control
+    {
+        font-size:50px;
+    }
+}
+
+@media (max-width: 480px)
+{   
+}
